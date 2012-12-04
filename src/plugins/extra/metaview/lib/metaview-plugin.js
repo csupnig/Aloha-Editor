@@ -82,6 +82,22 @@ define([
 						}
 					}
 			);
+			Aloha.bind(
+					"aloha-editable-deactivated",
+					function (jEvent, aEvent) {
+						var config;
+						config = that.getEditableConfig( Aloha.activeEditable.obj );
+
+						jQuery(Aloha.activeEditable.obj).removeClass('aloha-metaview');
+						
+
+ 						if ( /* that.button && */ jQuery(Aloha.activeEditable.obj).hasClass('aloha-metaview')) {
+							that._toggleMetaViewButton.setState(true);
+						} else {
+							that._toggleMetaViewButton.setState(false);
+						}
+					}
+			);
 		},
 		
 		buttonClick: function() {
