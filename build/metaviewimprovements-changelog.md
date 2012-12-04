@@ -7,7 +7,7 @@ All changes are categorized into one of the following keywords:
                usage, or intent of an existing one.
 
 ----
-- **ENHANCEMENT**: The metaview view can now be enabled per editable.
+- **ENHANCEMENT**: The metaview view can now be enabled per editable. And it will be disabled once the editable is left.
 Aloha.settings = {
 			plugins: {
 				metaview: {
