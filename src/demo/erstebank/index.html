@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>Getting Started with Aloha Editor</title>
+	<link rel="stylesheet" href="index.css" type="text/css">
+	<link rel="stylesheet" href="../../css/aloha.css" type="text/css">
+	<script src="../../lib/require.js"></script>
+	<script src="../../lib/vendor/jquery-1.7.2.js"></script>
+	<script src="../../lib/aloha.js" data-aloha-plugins="common/ui,
+	                            common/format,
+	                            common/table,
+	                            common/list,
+	                            common/link,
+	                            common/highlighteditables,
+	                            common/undo,
+	                            common/contenthandler,
+	                            common/paste,
+	                            common/characterpicker,
+	                            common/commands,
+	                            common/block,
+	                            common/image,
+	                            common/abbr,
+	                            common/horizontalruler,
+	                            common/align,
+	                            common/dom-to-xhtml,
+	                            extra/formatlesspaste,
+	                            extra/hints,
+	                            extra/toc,
+	                            extra/headerids,
+	                            extra/listenforcer,
+	                            extra/metaview,
+	                            extra/numerated-headers,
+	                            extra/ribbon,
+	                            extra/wai-lang,
+	                            extra/flag-icons,
+	                            extra/linkbrowser,
+	                            extra/imagebrowser,
+	                            extra/cite"></script>
+</head>
+<body>
+	<div>
+		<span>HTML:</span><br/>
+		<textarea name="text" id="text">
+		</textarea><br/>
+		<button id="normal">wait...</button>
+		<button id="doit">wait...</button>
+	</div>
+	<div id="main">
+		<div id="content"><p>Getting started with Aloha Editor!</p></div>
+	</div>
+	<script type="text/javascript">
+	Aloha.ready( function() {
+		Aloha.jQuery('#content').aloha();
+		
+		Aloha.require(['aloha/contenthandlermanager'], function (Manager) {
+
+			Aloha.jQuery('#doit').html('Handled!').click(function(){
+				var dirty = Aloha.jQuery('#text').val();
+
+				var clean = Manager.handleContent(dirty, {
+					contenthandler: ['word', 'generic', 'block', 'formatless', 'blockelement', 'basic']
+				});
+				Aloha.jQuery('#content').html(clean);
+			});
+
+			Aloha.jQuery('#normal').html('Normal!').click(function(){
+				var dirty = Aloha.jQuery('#text').val();
+
+				
+				Aloha.jQuery('#content').html(dirty);
+			});
+		});
+
+	});
+	</script>
+</body>
+</html>
