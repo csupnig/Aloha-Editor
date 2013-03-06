@@ -2,41 +2,17 @@
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<title>Getting Started with Aloha Editor</title>
+	<title>Fixing HTML with Aloha Editor and jQuery</title>
 	<link rel="stylesheet" href="index.css" type="text/css">
 	<link rel="stylesheet" href="../../css/aloha.css" type="text/css">
 	<script src="../../lib/require.js"></script>
 	<script src="../../lib/vendor/jquery-1.7.2.js"></script>
 	<script src="../../lib/aloha.js" data-aloha-plugins="common/ui,
-	                            common/format,
-	                            common/table,
-	                            common/list,
-	                            common/link,
-	                            common/highlighteditables,
-	                            common/undo,
 	                            common/contenthandler,
 	                            common/paste,
-	                            common/characterpicker,
 	                            common/commands,
-	                            common/block,
-	                            common/image,
-	                            common/abbr,
-	                            common/horizontalruler,
-	                            common/align,
-	                            common/dom-to-xhtml,
-	                            extra/formatlesspaste,
-	                            extra/hints,
-	                            extra/toc,
-	                            extra/headerids,
-	                            extra/listenforcer,
-	                            extra/metaview,
-	                            extra/numerated-headers,
-	                            extra/ribbon,
-	                            extra/wai-lang,
-	                            extra/flag-icons,
-	                            extra/linkbrowser,
-	                            extra/imagebrowser,
-	                            extra/cite"></script>
+	                            common/dom-to-xhtml
+	                            "></script>
 </head>
 <body>
 	<div>
@@ -45,29 +21,32 @@
 		</textarea><br/>
 		<button id="normal">wait...</button>
 		<button id="doit">wait...</button>
+		<button id="xhtml">wait..</button>
 	</div>
 	<div id="main">
-		<div id="content"><p>Getting started with Aloha Editor!</p></div>
+		<div id="content"><p>Fixing HTML with Aloha Editor and jQuery!</p></div>
 	</div>
 	<script type="text/javascript">
 	Aloha.ready( function() {
-		Aloha.jQuery('#content').aloha();
-		
-		Aloha.require(['aloha/contenthandlermanager'], function (Manager) {
+		Aloha.require(['aloha/contenthandlermanager', 'dom-to-xhtml/dom-to-xhtml','aloha/ephemera'], function (Manager, domToXhtml, Ephemera) {
 
 			Aloha.jQuery('#doit').html('Handled!').click(function(){
 				var dirty = Aloha.jQuery('#text').val();
-
 				var clean = Manager.handleContent(dirty, {
-					contenthandler: ['word', 'generic', 'block', 'formatless', 'blockelement', 'basic']
+					contenthandler: ['word', 'generic', 'blockelement', 'basic']
 				});
+				Aloha.jQuery('#content').html(clean);
+			});
+
+			Aloha.jQuery('#xhtml').html('XHTML!').click(function(){
+				var dirty = Aloha.jQuery('#text').val();
+				var editableElement = jQuery("<div>" + dirty + "</div>");
+				var clean = domToXhtml.contentsToXhtml(editableElement[0], Ephemera.ephemera());
 				Aloha.jQuery('#content').html(clean);
 			});
 
 			Aloha.jQuery('#normal').html('Normal!').click(function(){
 				var dirty = Aloha.jQuery('#text').val();
-
-				
 				Aloha.jQuery('#content').html(dirty);
 			});
 		});
